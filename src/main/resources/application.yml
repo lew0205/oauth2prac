@@ -1,0 +1,7 @@
+jwt:
+  accessSecret: YUc5c2RXOWhkWFJvY0hKaFkyRmpZMlZ6Y3c9PQ==
+  refreshSecret: YUc5c2RXOWhkWFJvY0hKaFkzSmxabkpsYzJnPQ==
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
