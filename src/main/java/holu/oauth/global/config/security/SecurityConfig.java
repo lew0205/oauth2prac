@@ -4,6 +4,7 @@ import holu.oauth.global.filter.ExceptionFilter;
 import holu.oauth.global.filter.JwtFilter;
 import holu.oauth.global.security.handler.CustomAccessDeniedHandler;
 import holu.oauth.global.security.handler.CustomAuthenticationEntryPointHandler;
+import holu.oauth.global.security.oauth.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +23,7 @@ public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
     private final ExceptionFilter exceptionFilter;
+    private final CustomOAuth2UserService customOAuth2UserService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -35,12 +37,17 @@ public class SecurityConfig {
             .authorizeHttpRequests()
             .requestMatchers("/**").denyAll()
             .and()
+            .oauth2Login()
+            .userInfoEndpoint()
+            .userService(customOAuth2UserService)
+            .and()
             .exceptionHandling()
             .accessDeniedHandler(new CustomAccessDeniedHandler())
             .authenticationEntryPoint(new CustomAuthenticationEntryPointHandler())
             .and()
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
             .addFilterBefore(exceptionFilter, JwtFilter.class);
+
         return http.build();
     }
 
