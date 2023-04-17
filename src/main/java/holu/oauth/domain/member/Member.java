@@ -28,4 +28,11 @@ public class Member {
     private String picture;
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    public Member update(String name, String picture){
+        this.name = name;
+        this.picture = picture;
+
+        return this;
+    }
 }
