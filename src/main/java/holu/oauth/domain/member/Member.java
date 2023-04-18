@@ -6,15 +6,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Getter
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "Member")
 public class Member {
 
     @Id
@@ -23,16 +17,27 @@ public class Member {
     private Long id;
     private String email;
 
-    private String password;
     private String name;
     private String picture;
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public Member update(String name, String picture){
+    @Builder
+    public Member(String email, String name, String picture, Role role) {
+        this.email = email;
+        this.name = name;
+        this.picture = picture;
+        this.role = role;
+    }
+
+    public Member update(String name, String picture) {
         this.name = name;
         this.picture = picture;
 
         return this;
+    }
+
+    public String getRoleKey() {
+        return this.role.getAuthority();
     }
 }
