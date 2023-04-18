@@ -24,7 +24,7 @@ public class SecurityConfig {
             .headers().frameOptions().disable()
             .and()
             .authorizeHttpRequests()
-            .requestMatchers("/**").permitAll()
+            .antMatchers("/**").permitAll()
             .and()
             .oauth2Login()
             .userInfoEndpoint()
