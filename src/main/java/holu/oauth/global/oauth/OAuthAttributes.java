@@ -1,11 +1,10 @@
-package holu.oauth.global.security.oauth;
+package holu.oauth.global.oauth;
 
 import holu.oauth.domain.member.Member;
 import holu.oauth.domain.member.Role;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 @Getter

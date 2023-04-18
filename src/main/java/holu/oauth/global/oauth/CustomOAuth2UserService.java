@@ -1,4 +1,4 @@
-package holu.oauth.global.security.oauth;
+package holu.oauth.global.oauth;
 
 import holu.oauth.domain.member.Member;
 import holu.oauth.domain.member.SessionMember;
@@ -14,7 +14,6 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.Collections;
 
 @RequiredArgsConstructor

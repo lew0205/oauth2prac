@@ -4,7 +4,7 @@ import holu.oauth.global.filter.ExceptionFilter;
 import holu.oauth.global.filter.JwtFilter;
 import holu.oauth.global.security.handler.CustomAccessDeniedHandler;
 import holu.oauth.global.security.handler.CustomAuthenticationEntryPointHandler;
-import holu.oauth.global.security.oauth.CustomOAuth2UserService;
+import holu.oauth.global.oauth.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -37,17 +36,9 @@ public class SecurityConfig {
             .authorizeHttpRequests()
             .requestMatchers("/**").permitAll()
             .and()
-            .exceptionHandling()
-            .accessDeniedHandler(new CustomAccessDeniedHandler())
-            .authenticationEntryPoint(new CustomAuthenticationEntryPointHandler())
-            .and()
             .oauth2Login()
             .userInfoEndpoint()
-            .userService(customOAuth2UserService)
-            .and()
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-            .addFilterBefore(exceptionFilter, JwtFilter.class);
-
+            .userService(customOAuth2UserService);
         return http.build();
     }
 
